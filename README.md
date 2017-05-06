@@ -16,6 +16,23 @@
 
 过采样不能简单地对初始正类样本进行复制采样，否则会导致严重的过拟合；过采样的代表性算法SMOTE是通过对训练集里的正类样本进行插值来产生额外的正类样本。
 
+```python
+# 无放回采样
+def randomSampling(data, number):
+    try:
+        slice = random.sample(data, number)
+        return slice
+    except:
+        print 'sample larger than population'
+```
+```python
+# 有放回采样
+def RepetitionRandomSampling(data, number):
+    sample = []
+    for i in range(number):
+        sample.append(data[random.randint(0, len(data)-1)])
+    return sample
+```
 
 - 方法三:阈值移动（threshold-moving）
 
@@ -32,6 +49,19 @@
 y'/(1-y') = y/(1-y)*Mn/Mp
 
 \frac{y^{'}}{1-y^{'}} = \frac{y}{1-y}*\frac{m^-}{m^+}
+
+- 尝试产生人工数据样本：SMOTE，基于举例度量选择小类别下两个或者更多的相似样本，然后选择其中一个样本，并随机选择一定数量的邻样本对选择的那个样本的属性增加噪声，每次处理一个属性。这样就构造了更多的新数据。
+- 混淆矩阵：TP、FP、FN、TN
+- 准确率、召回率、F1、AUC
+- 决策树在类别不均衡数据上表现不错
+- 尝试对模型进行惩罚，对小样本错分时增加额外代价
+- 设大类中的样本的个数是小类样本个数的L倍，那么在随机梯度下降算法中，每次遇到一个小类中样本进行训练时，训练L次
+- 多个分类器的投票或平均
+- boosting方法，弱分类器，加大错分样本的权重
+- 考虑成异常
+
+
+
 
 
 ### 2.决策树中的连续值处理
